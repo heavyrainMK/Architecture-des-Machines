@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire</title>
+    <style>
+        body {
+            background-color: #808080;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+        }
+
+        h2 {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 10px;
+        }
+
+        p {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 15px;
+            margin: 0 auto;
+        }
+
+        .paragraphe {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 10px;
+        }
+
+        .formulaire {
+            background-color: #000;
+            color: #fff;
+            padding: 10px;
+            display: inline-block;
+            border: 1px solid #fff;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <p class="paragraphe"> Remplissez les champs</p>
+    <form id="monFormulaire" action="traitement.php" method="post">
+        <label for="nom">Nom*:</label>
+        <input type="text" name="nom" required><br>
+
+        <label for="prenom">Prénom*:</label>
+        <input type="text" name="prenom" required><br>
+
+        <label for="email">Email*:</label>
+        <input type="email" name="email" required><br>
+
+        <label for="telephone">Téléphone:</label>
+        <input type="tel" name="telephone" pattern="[+0-9]+" title="Entrez un numéro de téléphone valide"><br>
+
+        <label for="date">Date*:</label>
+        <input type="date" name="date" required><br>
+
+        <label for="message">Message*:</label>
+        <textarea name="message" rows="4" required></textarea><br>
+
+        <p class="paragraphe">Sur une échelle de 1 à 5, à quel point aimez-vous ma page web?</p>
+        <label>
+            <input type="checkbox" name="notation" value="1"> 1
+        </label>
+        <label>
+            <input type="checkbox" name="notation" value="2"> 2
+        </label>
+        <label>
+            <input type="checkbox" name="notation" value="3"> 3
+        </label>
+        <label>
+            <input type="checkbox" name="notation" value="4"> 4
+        </label>
+        <label>
+            <input type="checkbox" name="notation" value="5"> 5
+        </label>
+
+        <br>
+
+        <div class="formulaire">* Champs obligatoires</div>
+
+        <input type="submit" value="Envoyer">
+        <input type="reset" value="Réinitialiser"> <!-- Ajout d'un bouton de réinitialisation -->
+    </form>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const formulaire = document.getElementById("monFormulaire");
+            const champNom = document.getElementsByName("nom")[0];
+            const champPrenom = document.getElementsByName("prenom")[0];
+            const champEmail = document.getElementsByName("email")[0];
+
+            // Validation en temps réel
+            formulaire.addEventListener("input", function(event) {
+                if (event.target.required && event.target.value === "") {
+                    event.target.setCustomValidity("Ce champ est obligatoire");
+                } else {
+                    event.target.setCustomValidity("");
+                }
+            });
+
+            // Confirmation d'envoi
+            formulaire.addEventListener("submit", function(event) {
+                const confirmation = confirm("Êtes-vous sûr de vouloir envoyer ce formulaire ?");
+                if (!confirmation) {
+                    event.preventDefault(); // Annuler l'envoi du formulaire
+                }
+            });
+
+            // Focus automatique sur le premier champ du formulaire
+            champNom.focus();
+        });
+    </script>
+</body>
+</html>
